@@ -90,6 +90,13 @@ describe("loader", function() {
 			'module.exports = "<h3>{{ count <= 1 ? \\"foo\\" : \\"bar\\" }}</h3>";'
 		);
 	});
+	it('should minimize vue template', function () {
+	  loader.call({
+			minimize: true
+		}, '<div    :id="test"   @click="ok">\n  hihihi {{what}}   \n</div>').should.be.eql(
+			'module.exports = "<div :id=test @click=ok> hihihi {{what}} </div>";'
+		);
+	})
 	it("should not translate root-relative urls (without root query)", function() {
 		loader.call({}, 'Text <img src="/image.png">').should.be.eql(
 			'module.exports = "Text <img src=\\"/image.png\\">";'
