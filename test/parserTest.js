@@ -9,6 +9,7 @@ function test(name, html, result) {
 			if(tag === "link" && attr === "href") return true;
 			if(tag === "div" && attr === "data-videomp4") return true;
 			if(tag === "use" && attr === "xlink:href") return true;
+			if(tag === "div" && /data-/.test(attr)) return true;
 			return false;
 		}).map(function(match) { return match.value }).should.be.eql(result);
 	});
@@ -32,6 +33,7 @@ describe("parser", function() {
 	test("doctype", '<!doctype html><img src="image.png">', ["image.png"]);
 	test("alphanumeric", '<div data-videomp4="video.mp4"></div>', ["video.mp4"]);
 	test("use", '<use xlink:href="vector.svg" />', ["vector.svg"]);
+	test("vue shorthands", '<img :src="imageUrl">', []);
 });
 
 describe("locations", function() {
