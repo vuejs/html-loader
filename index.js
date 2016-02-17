@@ -15,11 +15,8 @@ function randomIdent() {
 
 function getLoaderConfig(context) {
 	var query = loaderUtils.parseQuery(context.query);
-	var configKey = query.config || 'htmlLoader';
-	var config = context.options && context.options.hasOwnProperty(configKey) ? context.options[configKey] : {};
-
+	var config = (context.options && context.options.vue && context.options.vue.html) || {};
 	delete query.config;
-
 	return assign(query, config);
 }
 

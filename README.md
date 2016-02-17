@@ -1,4 +1,25 @@
-# html loader for webpack
+# vue-html-loader
+
+> This is a fork of [html-loader](https://github.com/webpack/html-loader) with some modifications for handling Vue templates.
+
+## Config
+
+You can config the loader's behavior by adding an `html` field under `vue` in your webpack config:
+
+``` js
+// webpack.config.js
+module.exports = {
+  // ...
+  vue: {
+    html: {
+      // all loader queries can be specified here
+      // also, you can specify options for htmlMinifier here.
+    }
+  }
+}
+```
+
+## Original README below
 
 Exports HTML as string. HTML is minimized when the compiler demands.
 
@@ -85,46 +106,6 @@ require("html?interpolate!./file.html");
 ```
 <img src="${require(`./images/gallery.png`)}" />
 <div>${require('./partials/gallery.html')}</div>
-```
-
-## Advanced options
-
-If you need to pass [more advanced options](https://github.com/webpack/html-loader/pull/46), especially those which cannot be stringified, you can also define an `htmlLoader`-property on your `webpack.config.js`:
-
-``` javascript
-module.exports = {
-  ...
-  module: {
-    loaders: [
-      {
-        test: /\.html$/,
-        loader: "html"
-      }
-    ]
-  }
-  htmlLoader: {
-  	ignoreCustomFragments: [/\{\{.*?}}/]
-  }
-};
-```
-
-If you need to define two different loader configs, you can also change the config's property name via `html?config=otherHtmlLoaderConfig`:
-
-```javascript
-module.exports = {
-  ...
-  module: {
-    loaders: [
-      {
-        test: /\.html$/,
-        loader: "html?config=otherHtmlLoaderConfig"
-      }
-    ]
-  }
-  otherHtmlLoaderConfig: {
-    ...
-  }
-};
 ```
 
 ## License

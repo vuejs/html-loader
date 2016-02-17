@@ -1,8 +1,8 @@
 {
-  "name": "html-loader",
-  "version": "0.4.3",
-  "author": "Tobias Koppers @sokra",
-  "description": "html loader module for webpack",
+  "name": "vue-html-loader",
+  "version": "1.2.0",
+  "author": "Evan You",
+  "description": "vue template loader for webpack",
   "dependencies": {
     "es6-templates": "^0.2.2",
     "fastparse": "^1.0.0",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:webpack/html-loader.git"
+    "url": "git@github.com:vuejs/vue-html-loader.git"
   },
   "licenses": [
     {
