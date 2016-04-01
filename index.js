@@ -74,8 +74,6 @@ module.exports = function(content) {
 			"removeAttributeQuotes",
 			"useShortDoctype",
 			"keepClosingSlash",
-			"minifyJS",
-			"minifyCSS",
 			"removeScriptTypeAttributes",
 			"removeStyleTypeAttributes",
 		].forEach(function(name) {
