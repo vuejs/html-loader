@@ -69,23 +69,12 @@ describe("loader", function() {
 		loader.call({
 			minimize: true,
 			options: {
-				htmlLoader: {
-					ignoreCustomFragments: [/\{\{.*?}}/]
+				vue: {
+					html: {
+						ignoreCustomFragments: [/\{\{.*?}}/]
+					}
 				}
 			}
-		}, '<h3>{{ count <= 1 ? "foo" : "bar" }}</h3>').should.be.eql(
-			'module.exports = "<h3>{{ count <= 1 ? \\"foo\\" : \\"bar\\" }}</h3>";'
-		);
-	});
-	it("should allow the webpack config property name to be configured", function() {
-		loader.call({
-			minimize: true,
-			options: {
-				htmlLoaderSuperSpecialConfig: {
-					ignoreCustomFragments: [/\{\{.*?}}/]
-				}
-			},
-			query: '?config=htmlLoaderSuperSpecialConfig'
 		}, '<h3>{{ count <= 1 ? "foo" : "bar" }}</h3>').should.be.eql(
 			'module.exports = "<h3>{{ count <= 1 ? \\"foo\\" : \\"bar\\" }}</h3>";'
 		);
