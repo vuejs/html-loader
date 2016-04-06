@@ -75,15 +75,12 @@ module.exports = function(content) {
 			"useShortDoctype",
 			"keepClosingSlash",
 			"removeScriptTypeAttributes",
-			"removeStyleTypeAttributes",
+			"removeStyleTypeAttributes"
 		].forEach(function(name) {
 			if(typeof minimizeOptions[name] === "undefined") {
 				minimizeOptions[name] = true;
 			}
 		});
-
-		// required for Vue 1.0 shorthand syntax
-		minimizeOptions.customAttrSurround = [[/@/, new RegExp('')], [/:/, new RegExp('')]]
 
 		content = htmlMinifier.minify(content, minimizeOptions);
 	}
