@@ -1,6 +1,6 @@
 {
   "name": "vue-html-loader",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "author": "Evan You",
   "description": "vue template loader for webpack",
   "dependencies": {
