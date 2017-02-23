@@ -21,10 +21,5 @@
     "type": "git",
     "url": "git@github.com:vuejs/vue-html-loader.git"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://www.opensource.org/licenses/mit-license.php"
-    }
-  ]
+  "license": "MIT"
 }
