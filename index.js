@@ -14,7 +14,7 @@ function randomIdent() {
 }
 
 function getLoaderConfig(context) {
-	var query = loaderUtils.parseQuery(context.query);
+	var query = loaderUtils.getOptions(context) || {};
 	var config = (context.options && context.options.vue && context.options.vue.html) || {};
 	delete query.config;
 	return assign(query, config);
