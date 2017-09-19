@@ -36,7 +36,11 @@ module.exports = function(content) {
 	}
 	var root = config.root;
 	var links = attrParse(content, function(tag, attr) {
-		return attributes.indexOf(tag + ":" + attr) >= 0;
+		var item = tag + ":" + attr;
+		var res = attributes.find(function(a) {
+		  return item.indexOf(a) >= 0;
+		});
+		return !!res;
 	});
 	links.reverse();
 	var data = {};
@@ -62,6 +66,35 @@ module.exports = function(content) {
 	});
 	content.reverse();
 	content = content.join("");
+
+	if (config.interpolate === 'require'){
+
+		var reg = /\$\{require\([^)]*\)\}/g;
+		var result;
+		var reqList = [];
+		while(result = reg.exec(content)){
+			reqList.push({
+				length : result[0].length,
+				start : result.index,
+				value : result[0]
+			})
+		}
+		reqList.reverse();
+		content = [content];
+		reqList.forEach(function(link) {
+			var x = content.pop();
+			do {
+				var ident = randomIdent();
+			} while(data[ident]);
+			data[ident] = link.value.substring(11,link.length - 3)
+			content.push(x.substr(link.start + link.length));
+			content.push(ident);
+			content.push(x.substr(0, link.start));
+		});
+		content.reverse();
+		content = content.join("");
+	}
+
 	if(typeof config.minimize === "boolean" ? config.minimize : this.minimize) {
 		var minimizeOptions = assign({}, config);
 
@@ -85,14 +118,23 @@ module.exports = function(content) {
 		content = htmlMinifier.minify(content, minimizeOptions);
 	}
 
-	if(config.interpolate) {
+	if(config.interpolate && config.interpolate !== 'require') {
 		content = compile('`' + content + '`').code;
 	} else {
 		content = JSON.stringify(content);
 	}
 
-	return "module.exports = " + content.replace(/xxxHTMLLINKxxx[0-9\.]+xxx/g, function(match) {
+    var exportsString = "module.exports = ";
+	if (config.exportAsDefault) {
+        exportsString = "exports.default = ";
+
+	} else if (config.exportAsEs6Default) {
+        exportsString = "export default ";
+	}
+
+ 	return exportsString + content.replace(/xxxHTMLLINKxxx[0-9\.]+xxx/g, function(match) {
 		if(!data[match]) return match;
 		return '" + require(' + JSON.stringify(loaderUtils.urlToRequest(data[match], root)) + ') + "';
 	}) + ";";
+
 }
