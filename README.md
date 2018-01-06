@@ -1,3 +1,9 @@
+# DEPRECATED
+
+This is only used by the now outdated 8.x version of vue-loader.
+
+---
+
 # vue-html-loader
 
 > This is a fork of [html-loader](https://github.com/webpack/html-loader) with some modifications for handling Vue templates.
